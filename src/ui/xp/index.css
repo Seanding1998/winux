@@ -1,0 +1,279 @@
+/* winux XP 皮肤 —— 经典 Windows XP 外观 */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Tahoma', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* 蓝天白云 XP 壁纸（CSS 渐变 + 云） */
+.xp-desktop {
+  position: fixed;
+  inset: 0 0 30px 0; /* 底部给任务栏 */
+  background: linear-gradient(180deg, #1657c4 0%, #3a7ede 45%, #7fb7f0 78%, #b7dcff 100%);
+  overflow: hidden;
+  z-index: 0;
+}
+/* 云朵 */
+.xp-desktop::before,
+.xp-desktop::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 40%;
+  background:
+    radial-gradient(ellipse at 20% 90%, rgba(255,255,255,.9) 0 30%, transparent 32%),
+    radial-gradient(ellipse at 45% 80%, rgba(255,255,255,.8) 0 26%, transparent 28%),
+    radial-gradient(ellipse at 70% 92%, rgba(255,255,255,.9) 0 30%, transparent 32%),
+    radial-gradient(ellipse at 90% 80%, rgba(255,255,255,.7) 0 22%, transparent 24%);
+  filter: blur(6px);
+  opacity: .8;
+}
+.xp-desktop::before { top: -4%; }
+.xp-desktop::after { top: 30%; opacity: .55; }
+
+/* ---- 桌面图标 ---- */
+.xp-icons {
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.xp-icon {
+  width: 72px;
+  padding: 4px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.xp-icon:hover { background: rgba(36,86,184,.35); box-shadow: inset 0 0 0 1px rgba(120,170,255,.6); }
+.xp-icon .icon { font-size: 30px; filter: drop-shadow(1px 1px 1px rgba(0,0,0,.4)); }
+.xp-icon .label { color: #fff; text-shadow: 1px 1px 1px #000; font-size: 11px; text-align: center; }
+
+/* ---- XP 任务栏 ---- */
+.xp-taskbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 2px;
+  background: linear-gradient(180deg, #3162c3 0%, #4080e0 4%, #3d70d8 8%, #2d50b5 100%);
+  border-top: 1px solid #2050b0;
+  z-index: 100;
+  box-shadow: 0 -1px 3px rgba(0,0,0,.3);
+}
+
+.start-btn {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 10px 0 6px;
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(180deg, #7ec24f, #3f8f1f);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid #2c6b1a;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px #174a0c;
+}
+.start-btn:hover { filter: brightness(1.1); }
+.start-flag { font-size: 15px; }
+.start-text { letter-spacing: .5px; }
+
+.quick-launch { display: flex; gap: 2px; padding: 0 3px; border-right: 1px solid rgba(0,0,0,.25); margin-right: 2px; height: 24px; align-items: center; }
+.ql-btn { background: none; border: none; font-size: 15px; cursor: pointer; padding: 1px 3px; border-radius: 2px; }
+.ql-btn:hover { background: rgba(255,255,255,.18); }
+
+.task-buttons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  overflow: hidden;
+  height: 24px;
+}
+.task-btn {
+  background: linear-gradient(180deg, #4f8ce8, #3468c0);
+  color: #fff;
+  border: 1px solid #2a5aa8;
+  border-radius: 3px;
+  height: 22px;
+  padding: 0 8px;
+  font-size: 11px;
+  cursor: pointer;
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 1px #1a4a90;
+}
+.task-btn.active { background: linear-gradient(180deg, #2b5aa8, #245a9e); }
+
+.tray {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  background: rgba(0,0,0,.08);
+  border-left: 1px solid rgba(0,0,0,.3);
+  padding: 0 8px;
+  border-radius: 3px 0 0 3px;
+  color: #fff;
+  font-size: 11px;
+  text-shadow: 1px 1px 1px #1a4a90;
+}
+.tray-clock { font-weight: 600; }
+
+/* ---- XP 窗口（立体灰色边框 + 蓝色渐变标题栏）---- */
+.xp-window {
+  position: absolute;
+  background: #ece9d8;
+  border: 1px solid #0831a3;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 2px 2px 6px rgba(0,0,0,.45);
+  overflow: hidden;
+  min-width: 260px;
+  min-height: 120px;
+  z-index: 40;
+}
+.xp-window.active { z-index: 60; }
+.xp-titlebar {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #0a5fd4, #1f83f0 45%, #3a9ff5 50%, #2a82e0);
+  padding: 0 5px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px #0847a0;
+  cursor: default;
+}
+.xp-x {
+  width: 20px; height: 20px;
+  background: linear-gradient(180deg,#e88f8f,#c0392b);
+  border: 1px solid #7a1a10;
+  border-radius: 3px;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+.xp-x:hover { filter: brightness(1.15); }
+.xp-body { padding: 12px; background: #ece9d8; color: #333; font-size: 12px; }
+
+/* XP 按钮：灰色立体 */
+.xp-btn {
+  background: linear-gradient(180deg,#fff,#e7e7e7);
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 4px 16px;
+  font-size: 12px;
+  color: #222;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.15);
+}
+.xp-btn:hover { box-shadow: 1px 1px 2px rgba(0,0,0,.3); }
+
+/* ---- 开始菜单 ---- */
+.start-menu {
+  position: fixed;
+  left: 0;
+  bottom: 30px;
+  width: 360px;
+  background: #245edb;
+  border: 1px solid #0831a3;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 4px -2px 12px rgba(0,0,0,.5);
+  z-index: 120;
+  overflow: hidden;
+}
+.sm-header {
+  height: 56px;
+  background: linear-gradient(180deg,#1f4fb8,#2b6be0);
+  display: flex; align-items: flex-end;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px #06339a;
+  border-bottom: 2px solid #e2e9d8;
+}
+.sm-body { background: #245edb; }
+.sm-left {
+  width: 200px;
+  background: #fff;
+  float: left;
+  padding: 6px;
+  min-height: 240px;
+}
+.sm-left-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #222;
+}
+.sm-left-item:hover { background: #2d6fd6; color: #fff; }
+.sm-left-item .ic { font-size: 20px; }
+.sm-right { background: #245edb; padding: 8px; min-height: 240px; }
+.sm-right-item {
+  display: block; color: #fff; font-size: 11px;
+  padding: 4px 6px; text-decoration: none;
+}
+.sm-right-item:hover { color: #dce6ff; text-decoration: underline; }
+.sm-footer {
+  clear: both;
+  height: 34px;
+  background: linear-gradient(180deg,#3a6be0,#2858c0);
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 10px;
+  gap: 6px;
+  color: #fff;
+  font-size: 12px;
+  border-top: 1px solid #d4dcf0;
+}
+.sm-footer .sm-logoff, .sm-footer .sm-shutdown {
+  display: flex; align-items: center; gap: 4px;
+}
+.sm-shutdown { color:#ffe6a8; cursor: pointer; }
+.sm-logoff:hover, .sm-shutdown:hover { color: #fff; }
+
+/* ---- 关机框 ---- */
+.shutdown-body { text-align: center; padding: 18px; }
+.shutdown-msg { font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+.shutdown-btns { display: flex; gap: 14px; justify-content: center; }
+
+/* ---- 开屏横幅 ---- */
+.banner {
+  position: fixed;
+  top: 30px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 300;
+  box-shadow: 0 6px 20px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.2);
+  transition: opacity .4s ease;
+}
+.hidden { display: none !important; }

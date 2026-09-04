@@ -1,8 +1,14 @@
-# winux 🐧💻
+# winux 🐧💻🏁
 
-> **把整个 Windows 桌面壳换成 Linux。没有 WSL，没有虚拟机，就是一个普通 Windows 进程在硬装。**
+> **把整个 Windows 桌面壳换成 Linux（或者经典 Windows XP）。没有 WSL，没有虚拟机，就是一个普通 Windows 进程在硬装。**
 >
-> 双击，Windows 任务栏没了，整个屏幕是一个 Linux 桌面。你看着是 Windows，你在看 Linux，别慌。
+> 双击，Windows 11 的任务栏没了，整个屏幕变成一个 **GNOME / XFCE 的 Linux 桌面**——或者，**Windows XP 桌面**（蓝天白云 + 绿色开始按钮）。你看着是 Windows 11，你在看 Linux / XP，别慌。
+
+## 两种皮肤
+
+- **Linux 皮肤**（默认）：GNOME 顶栏 / XFCE 面板，点终端开的是真 CMD。
+- **Windows XP 皮肤**（`npm run start:xp` 或打包时固化）：XP 蓝天白云壁纸、绿色"开始"按钮、蓝色任务栏、立体窗口、"我的电脑"打开的是**真资源管理器**，开始菜单里的"关闭计算机"**真的会关掉 Windows 11**。
+- 打包 XP 版：`WINUX_SKIN=xp npm run dist` 会写入 `settings.json`，让产出的 exe 默认就是 XP 桌面。
 
 ## 这是什么
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <title>Windows XP</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body class="xp" data-theme="xp">
+  <!-- 桌面（蓝天白云壁纸 + 图标层 + 窗口层） -->
+  <div id="desktop" class="xp-desktop">
+    <!-- 桌面图标 -->
+    <div id="desktop-icons" class="xp-icons"></div>
+    <!-- 打开的窗口 -->
+    <div id="window-layer" class="window-layer"></div>
+    <!-- 开屏横幅 -->
+    <div id="banner" class="banner hidden"><span id="banner-text"></span></div>
+  </div>
+
+  <!-- XP 任务栏 -->
+  <div id="taskbar" class="xp-taskbar">
+    <button id="start-btn" class="start-btn">
+      <span class="start-flag">🪟</span>
+      <span class="start-text">开始</span>
+    </button>
+    <div class="quick-launch">
+      <button class="ql-btn" title="显示桌面" id="ql-desk">🖥️</button>
+      <button class="ql-btn" title="浏览器" id="ql-ie">🌐</button>
+    </div>
+    <div id="task-buttons" class="task-buttons"></div>
+    <div class="tray">
+      <div class="tray-icons" id="tray-icons">🔊 📶</div>
+      <div class="tray-clock" id="xp-clock">20:42</div>
+    </div>
+  </div>
+
+  <!-- 开始菜单 -->
+  <div id="start-menu" class="start-menu hidden"></div>
+
+  <!-- 关机确认框 -->
+  <div id="shutdown-box" class="xp-window hidden">
+    <div class="xp-titlebar"><span class="xp-title">关闭计算机</span><span class="xp-x">×</span></div>
+    <div class="xp-body shutdown-body">
+      <div class="shutdown-msg">你确定要关闭这台电<br/>脑吗？</div>
+      <div class="shutdown-btns">
+        <button class="xp-btn shutdown-do" id="sd-do">关闭</button>
+        <button class="xp-btn shutdown-cancel" id="sd-cancel">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

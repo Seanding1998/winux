@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc && node scripts/copy-static.js",
     "start": "npm run build && electron .",
+    "start:xp": "npm run build && node scripts/start.js xp",
     "dist": "npm run build && node scripts/build-release.js",
+    "dist:xp": "npm run build && node scripts/start-xp.js",
     "build:win": "node scripts/build-release.js"
   },
   "author": "Seanding1998",

@@ -46,6 +46,12 @@ function main() {
     fs.copyFileSync(watchdogSrc, path.join(unpackedDir, 'watchdog.cmd'));
   }
 
+  // 5.5 皮肤固化：WINUX_SKIN=xp 时写入 settings.json，让打包 exe 默认就是 XP 皮肤
+  const skin = process.env.WINUX_SKIN || 'gnome';
+  if (skin === 'xp') {
+    fs.writeFileSync(path.join(unpackedDir, 'settings.json'), JSON.stringify({ skin: 'xp' }));
+  }
+
   // 6. 打一个便携 zip
   fs.rmSync(zipOut, { force: true });
   sh(`powershell -Command "Compress-Archive -Path '${unpackedDir}\\*' -DestinationPath '${zipOut}' -Force"`);
