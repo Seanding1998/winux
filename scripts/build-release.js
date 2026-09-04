@@ -40,7 +40,13 @@ function main() {
   sh(`npx asar pack ${staging} ${path.join(unpackedDir, 'resources', 'app.asar')}`);
   fs.rmSync(staging, { recursive: true, force: true });
 
-  // 5. 打一个便携 zip
+  // 5. 把看门狗脚本复制到打包根目录（主进程从 process.execPath 旁查找）
+  const watchdogSrc = path.join(root, 'scripts', 'watchdog.cmd');
+  if (fs.existsSync(watchdogSrc)) {
+    fs.copyFileSync(watchdogSrc, path.join(unpackedDir, 'watchdog.cmd'));
+  }
+
+  // 6. 打一个便携 zip
   fs.rmSync(zipOut, { force: true });
   sh(`powershell -Command "Compress-Archive -Path '${unpackedDir}\\*' -DestinationPath '${zipOut}' -Force"`);
 

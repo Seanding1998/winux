@@ -1,75 +1,64 @@
 # winux 🐧💻
 
-> **在 Windows 里跑到一个 Linux 桌面。没有 WSL，没有虚拟机，就是一个普通的 Windows 进程在硬装。**
+> **把整个 Windows 桌面壳换成 Linux。没有 WSL，没有虚拟机，就是一个普通 Windows 进程在硬装。**
 >
-> 你看着是 Windows，你在看 Linux，别慌。
+> 双击，Windows 任务栏没了，整个屏幕是一个 Linux 桌面。你看着是 Windows，你在看 Linux，别慌。
 
 ## 这是什么
 
-`winux` 是一个原生 Windows 应用程序（用 Electron 写的），打开就是一个"看起来完全像真的 Linux 桌面"的界面。
+`winux` 是原生 Windows 应用程序（Electron，**不借 WSL、不用虚拟机**），它做的不是"弹个 Linux 样子的窗口"，而是：
 
-- 默认皮肤：**GNOME**（顶栏 + Activities 总览 + 应用网格 + 深色壁纸）
-- 一键切换：**XFCE**（底部面板 + 应用菜单 + 蓝色壁纸）
-- 桌面角落明晃晃挂着 **"此处是 Linux"**
+1. **杀掉 Windows 桌面壳**（`explorer.exe`），接管整块屏幕。
+2. 屏幕上只剩一个 **GNOME / XFCE 外观的 Linux 桌面**——顶部栏、Activities、应用网格、底部面板，看着就是 Linux。
+3. 桌面里的**"终端"打开的是真正的 Windows CMD**（`cmd.exe`）——Linux 桌面住着个 Windows CMD，荒诞拉满。
+4. 桌面**抢占 `Alt+F4` 等 Windows 组合键**——别想用 Windows 的习惯关掉它，它现在自己是"系统"。
+5. 用累了，在桌面里点"关机"（或按 `Alt+Q`），**Windows 桌面完整恢复**，一切如初。
 
-**它真的就是一个 Windows 进程。** 没有 WSL，没有虚拟机，没有 Linux 内核，什么都没有。只是一个 Electron 窗口在努力假装自己是 GNOME Shell。
+**它真就是一个 Electron 进程在假装整个 Linux 桌面环境。** 没有 Linux 内核，没有任何 Linux 二进制，全是 Windows。
 
 ## 为什么做这个
 
-因为"在 Windows 里跑 Linux 桌面"这件事本身就是一个自相矛盾的冷笑话。而大多数人第一反应是"这得用 WSL 或者虚拟机吧？"——答案是不用。这就是整活。
+因为"在 Windows 上跑 Linux 桌面，还不靠 WSL/虚拟机"这件事本身就是个冷笑话。第一反应"这得用 WSL 吧？"——不用。这就是整活，而且整得能让别人信。
 
 ## 功能
 
-- 🖥️ **GNOME 风格桌面**：顶部栏（Activities / 时钟 / 状态图标）、桌面图标、暗色 Adwaita 主题
-- 🔍 **Activities 总览**：点左上角 Activities，桌面缩放模糊，出现搜索框 + 应用网格（文件、终端、Firefox、Nautilus、GIMP、VS Code…）
-- 🪟 **应用窗口装饰**：GNOME 风格圆角窗口 + 标题栏 + 关闭按钮
-- ⚡ **电源菜单**：锁定 / 注销 / 重启 / 关机（都是假的，什么都关不死，反而会弹一个"这是 Windows，别慌"）
-- 🐧 **XFCE 皮肤**：一键切换，底部面板 / 应用菜单 / 时钟
-- 💬 **开屏提示**：初次启动浮出"这是 Windows，你在看 Linux，别慌。"
+- 🖥️ **替换桌面壳**：接管时关闭 `explorer.exe`，全屏显示 Linux 桌面（有看门狗 + Windows 自动重启双保险，桌面包回来，不会丢）。
+- 🔍 **GNOME 外观**：顶部栏（Activities / 时钟 / 状态图标）、桌面图标、暗色主题、Activities 总览缩放搜索 + 应用网格。
+- 🐧 **XFCE 外观**：一键切换，底部面板 + 应用菜单 + 时钟。
+- ⌨️ **真·CMD 终端**：点"终端"→ 拉起真正的 `cmd.exe`，可敲命令、可 `exit`。
+- ⚡ **组合键拦截**：`Alt+F4` 被桌面"吃掉"（当作关机，恢复桌面退出）；`Alt+Tab` 等被拦截。
+- 💬 **开屏横幅**："这是 Windows，你在看 Linux，别慌。"
 
-## 截图
+## 安全 / 可回退
 
-| GNOME | XFCE |
-| --- | --- |
-| ![gnome](docs/gnome.png) | ![xfce](docs/xfce.png) |
-
-点击左侧 GNOME，看看它是怎么假装自己是 Linux 的；切到 XFCE（顶栏右侧 ⌘ 按钮或电源菜单），它就是另一个 Linux 了。
+- 接管时用 `taskkill /f /im explorer.exe` 关闭桌面壳；退出（含异常）自动 `start explorer.exe` 恢复。
+- 拉了一个独立 `watchdog.cmd`：万一 winux 被强杀，它自动帮你把 Windows 桌面拉回来。
+- Windows 也会在 explorer 被杀后自动重启它。**三重保险，桌面回不来几乎不可能。**
 
 ## 安装与运行
 
-你需要 [Node.js](https://nodejs.org) 18+。
+需要 [Node.js](https://nodejs.org) 18+。
 
 ```bash
-# 克隆
 git clone https://github.com/Seanding1998/winux.git
 cd winux
-
-# 安装依赖
 npm install
-
-# 开发模式运行
-npm start
-
-# 打包成 exe
-npm run dist
+npm run build && npm start    # 开发模式（安全起见启动不接管，登录后点"接管屏幕"）
+npm run dist                  # 打包成 release/winux-portable.zip
 ```
 
-打包后在 `release/` 目录下得到 `winux Setup.exe`（安装包）和 `winux.exe`（便携版）。双击就能看到你的假 Linux 桌面。
-
-## 截图说明
-
-仓库 `docs/` 目录下放了实际生成的验收截图（`gnome.png`、`xfce.png`、`overview.png` 等）。上面表格里的图片就是它们。
+> **提醒**：直接跑 `npm start` 是安全预览（不杀 explorer）。要体验"真接管"，打包后用 `release/win-unpacked/winux.exe`，或给应用加一个"接管屏幕"按钮。
 
 ## 技术细节
 
-- Electron + TypeScript
-- 渲染层是纯 HTML/CSS/JS，用`data-theme` 属性切换 GNOME / XFCE 皮肤
-- 配置持久化走 `localStorage`
-- 主进程与渲染进程通过 `contextBridge` 隔离（`contextIsolation: true`）
+- Electron + TypeScript，渲染层纯 HTML/CSS/JS。
+- 主进程 `main.ts`：`killExplorer` / `restoreExplorer`、`openCmd`（spawn `cmd.exe`）、组合键拦截。
+- 看门狗 `scripts/watchdog.cmd`：独立进程，主进程被杀时自动恢复桌面。
+- 皮肤切换用 `data-theme` 属性，配置持久化走 `localStorage`。
 
 ## 免责声明
 
-我向你保证，这台机器上的任务栏真的是 Windows 的。它只是在**假装**自己是 Linux——而且假装得还挺像。
+这真的是 Windows 在假装 Linux。它装的还挺像——连你自己都差点信了。😏
 
 ## License
 

@@ -135,7 +135,21 @@ function confirmPower(action: string): void {
 $('#pm-lock').addEventListener('click', () => confirmPower('锁定'));
 $('#pm-logout').addEventListener('click', () => confirmPower('注销'));
 $('#pm-reboot').addEventListener('click', () => confirmPower('重启'));
-$('#pm-shutdown').addEventListener('click', () => confirmPower('关机'));
+$('#pm-shutdown').addEventListener('click', () => doShutdown());
+
+// ---------- 组合键拦截：吃掉 ALT+F4 等 Windows 快捷键 ----------
+// 外壳替换模式下，桌面窗口全屏，这些组合键不该触发 Windows 默认行为。
+const swallowedKeys: string[] = ['Alt+F4', 'Alt+Tab', 'Super', 'Meta'];
+document.addEventListener('keydown', (e) => {
+  const combo = `${e.altKey ? 'Alt+' : ''}${e.ctrlKey ? 'Ctrl+' : ''}${e.key}`;
+  // Alt+F4 -> 直接当成"关机"（恢复 explorer + 退出），避免误关窗口露出黑屏
+  if (e.key === 'F4' && e.altKey) {
+    e.preventDefault();
+    doShutdown();
+    return;
+  }
+  if (swallowedKeys.some((k) => k === combo)) e.preventDefault();
+});
 
 // ---------- 假应用窗口 ----------
 function openMockWindow(title: string, body: string): void {
@@ -168,8 +182,28 @@ function showBanner(b: Banner): void {
   banner.classList.remove('hidden');
   setTimeout(() => banner.classList.add('hidden'), 4500);
 }
-const w = (window as unknown as { winux?: { onBanner: (cb: (b: Banner) => void) => void } }).winux;
+interface WinuxBridge {
+  onBanner: (cb: (b: Banner) => void) => void;
+  openCmd?: () => Promise<void>;
+  restoreExplorer?: () => Promise<void>;
+  shutdown?: () => Promise<void>;
+}
+const w = (window as unknown as { winux?: WinuxBridge }).winux;
 if (w?.onBanner) w.onBanner(showBanner);
+
+// ---------- 真·CMD 终端 + 电源动作 ----------
+function launchCmd(): void {
+  if (w?.openCmd) void w.openCmd();
+  else console.warn('winux 桥不可用，无法打开 CMD');
+}
+// 终端应用：点开就是真 cmd.exe
+const termApp = apps.find((a) => a.id === 'term');
+if (termApp) termApp.run = launchCmd;
+
+function doShutdown(): void {
+  if (w?.shutdown) void w.shutdown();
+  else openMockWindow('关机', '这是外壳替换模式，请通过 CMD 或 Alt+Q 退出。');
+}
 
 // ---------- 初始化 ----------
 renderDesktopIcons();
@@ -297,6 +331,8 @@ setInterval(updateXfceClock, 30000);
   if (state === 'overview') openOverview();
   else if (state === 'power') {
     powerMenu.classList.remove('hidden');
+  } else if (state === 'cmd') {
+    launchCmd();
   } else if (state === 'app') {
     openMockWindow('文件', '这是一个假装运行的 Linux 文件管理器的空窗口。');
   } else if (state === 'xfce') {
