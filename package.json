@@ -1,0 +1,36 @@
+{
+  "name": "winux",
+  "version": "0.1.0",
+  "description": "在 Windows 上原生跑一个假 Linux 桌面 —— 这就是整活",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc && node scripts/copy-static.js",
+    "start": "npm run build && electron .",
+    "dist": "npm run build && node scripts/build-release.js",
+    "build:win": "node scripts/build-release.js"
+  },
+  "author": "Seanding1998",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "typescript": "^5.0.0"
+  },
+  "build": {
+    "appId": "com.seanding.winux",
+    "productName": "winux",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    }
+  }
+}

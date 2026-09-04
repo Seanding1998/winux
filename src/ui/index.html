@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <title>winux — 这是 Windows，你在看 Linux</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+  <body data-theme="xfce">
+  <!-- 顶部 GNOME 栏 -->
+  <header id="topbar" class="gnome-topbar">
+    <div class="bar-left">
+      <button id="activities" class="bar-btn activities">Activities</button>
+    </div>
+    <div class="bar-center">
+      <div id="clock" class="bar-item clock" title="日期与时间">周三 9月5日 20:42</div>
+    </div>
+    <div class="bar-right">
+      <button class="bar-btn icon-btn" title="声音" id="vol-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8v8a4.5 4.5 0 002.5-4z"/></svg>
+      </button>
+      <button class="bar-btn icon-btn" title="网络" id="net-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4C7.5 4 3.6 6 1 9l1.7 1.8A12 12 0 0121.3 10.8L23 9C20.4 6 16.5 4 12 4zm0 5c-2.7 0-5.2 1-7.1 2.8l1.7 1.7A8 8 0 0117.4 13l1.7-1.7A10 10 0 0012 9zm0 4.5a4 4 0 00-2.8 1.2L12 17.5l2.8-2.8A4 4 0 0012 13.5z"/></svg>
+      </button>
+      <button class="bar-btn icon-btn" title="电源" id="power-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 3a1 1 0 00-1 1v8a1 1 0 002 0V4a1 1 0 00-1-1z"/><path d="M6.3 6.1a1 1 0 00-1.4 1.4 8 8 0 1014.2 0 1 1 0 00-1.4-1.4 6 6 0 11-11.4 0z"/></svg>
+      </button>
+      <button class="bar-btn" title="切换外观" id="theme-btn">⌘</button>
+    </div>
+  </header>
+
+  <!-- XFCE 底部面板 -->
+  <footer id="xfce-panel" class="xfce-panel">
+    <button class="xfce-start" id="xfce-start" title="应用菜单">
+      <span class="xfce-start-logo">🐧</span> <span>Linux</span>
+    </button>
+    <div class="xfce-taskbar" id="xfce-taskbar"></div>
+    <div class="xfce-tray">
+      <button class="bar-btn icon-btn" id="xfce-net" title="网络"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4C7.5 4 3.6 6 1 9l1.7 1.8A12 12 0 0121.3 10.8L23 9C20.4 6 16.5 4 12 4zm0 5c-2.7 0-5.2 1-7.1 2.8l1.7 1.7A8 8 0 0117.4 13l1.7-1.7A10 10 0 0012 9zm0 4.5a4 4 0 00-2.8 1.2L12 17.5l2.8-2.8A4 4 0 0012 13.5z"/></svg></button>
+      <button class="bar-btn icon-btn" id="xfce-vol" title="声音"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8v8a4.5 4.5 0 002.5-4z"/></svg></button>
+      <div class="xfce-clock" id="xfce-clock"></div>
+    </div>
+  </footer>
+
+  <!-- 桌面区域 -->
+  <div id="desktop" class="desktop">
+    <!-- 桌面图标 -->
+    <div id="desktop-icons" class="desktop-icons"></div>
+    <!-- 桌面内容区（打开的"应用窗口"在此渲染） -->
+    <div id="workspace" class="workspace"></div>
+
+    <!-- 角落"此处是 Linux"标注 -->
+    <div class="winux-stamp">此处是 Linux</div>
+  </div>
+
+  <!-- Activities 总览遮罩 -->
+  <div id="overview" class="overview hidden">
+    <div class="overview-search">
+      <input id="overview-input" class="gsearch" type="text" placeholder="输入以搜索" autocomplete="off" />
+    </div>
+    <div id="app-grid" class="app-grid"></div>
+  </div>
+
+  <!-- 电源菜单 -->
+  <div id="power-menu" class="power-menu hidden">
+    <button id="pm-lock">锁定</button>
+    <button id="pm-logout">注销</button>
+    <button id="pm-reboot">重启</button>
+    <button id="pm-shutdown">关机</button>
+    <div class="power-sep"></div>
+    <button id="pm-about">关于 winux</button>
+    <button id="pm-theme">切换外观：XFCE</button>
+  </div>
+
+  <!-- XFCE 应用菜单弹出层 -->
+  <div id="xfce-menu" class="xfce-menu hidden"></div>
+
+  <!-- 开屏横幅 -->
+  <div id="banner" class="banner hidden">
+    <span id="banner-text"></span>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,516 @@
+/* winux —— GNOME 皮肤（深色 Adwaita 风格） */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --topbar-h: 28px;
+  --bg: #1e1e2e;
+  --topbar-bg: rgba(32, 32, 38, 0.85);
+  --text: #eee;
+  --muted: #b8b8c0;
+  --accent: #5b8dee;
+  --panel-bg: #24242c;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Cantarell', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  color: var(--text);
+  user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* ---------- 顶部栏 ---------- */
+.gnome-topbar {
+  height: var(--topbar-h);
+  background: var(--topbar-bg);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 12.5px;
+  position: relative;
+  z-index: 50;
+}
+
+.bar-left,
+.bar-right,
+.bar-center {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.bar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bar-btn {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 12.5px;
+  padding: 4px 8px;
+  border-radius: 99px;
+  cursor: pointer;
+  height: 22px;
+  line-height: 1;
+}
+
+.bar-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+}
+
+.icon-btn svg {
+  vertical-align: middle;
+}
+
+.activities {
+  font-weight: 500;
+}
+
+.clock {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 12.5px;
+}
+
+/* ---------- 桌面 ---------- */
+.desktop {
+  flex: 1;
+  position: relative;
+  background: radial-gradient(circle at 30% 25%, #2a2a38 0%, #14141d 70%);
+}
+
+.desktop-icons {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 72px;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon .icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.desktop-icon .label {
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.workspace {
+  position: absolute;
+  inset: 0;
+  padding: 30px;
+}
+
+/* 角落"此处是 Linux" */
+.winux-stamp {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #fff;
+  letter-spacing: 1px;
+  z-index: 40;
+}
+
+/* ---------- 假应用窗口 ---------- */
+.mock-window {
+  position: fixed;
+  width: 520px;
+  max-width: 80vw;
+  background: #2c2c36;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  top: 12%;
+  left: 28%;
+  z-index: 30;
+}
+
+.mock-window.active {
+  z-index: 32;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.mw-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #33333d;
+  font-size: 13px;
+}
+
+.mw-title {
+  font-weight: 500;
+}
+
+.mw-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.mw-btn {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.mw-btn.close:hover {
+  background: #e05252;
+}
+
+.mw-body {
+  padding: 18px 16px;
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.6;
+  min-height: 90px;
+}
+
+/* ---------- Activities 总览 ---------- */
+.overview {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 28, 0.92);
+  backdrop-filter: blur(10px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14vh;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.overview-search {
+  width: min(620px, 80vw);
+  margin-bottom: 6vh;
+}
+
+.gsearch {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 30px;
+  padding: 6px 4px;
+  outline: none;
+  text-align: center;
+}
+
+.gsearch::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 22px;
+  justify-content: center;
+}
+
+.app-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.app-tile:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+.app-name {
+  font-size: 12.5px;
+  color: #ddd;
+}
+
+/* ---------- 电源菜单 ---------- */
+.power-menu {
+  position: fixed;
+  right: 10px;
+  top: 34px;
+  background: #2c2c36;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 70;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  min-width: 140px;
+}
+
+.power-menu button {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.power-menu button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- 开屏横幅 ---------- */
+.banner {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  z-index: 90;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: opacity 0.4s ease;
+}
+
+/* ============================================================
+   XFCE 皮肤（data-theme="xfce"）
+   ============================================================ */
+
+/* 默认（gnome）时隐藏底部面板；xfce 时隐藏顶部栏 */
+#xfce-panel {
+  display: none;
+}
+body[data-theme='xfce'] #topbar {
+  display: none;
+}
+body[data-theme='xfce'] #xfce-panel {
+  display: flex;
+}
+
+/* XFCE 浅色壁纸/桌面微调 */
+body[data-theme='xfce'] .desktop {
+  background: radial-gradient(circle at 30% 25%, #3a6ea5 0%, #1d3b5c 75%);
+}
+
+/* ---- XFCE 底部面板 ---- */
+.xfce-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  background: #3c3c46;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  z-index: 45;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.xfce-start {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(#5a5a66, #474750);
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  padding: 4px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  height: 30px;
+}
+
+.xfce-start:hover {
+  background: linear-gradient(#6a6a76, #57575f);
+}
+
+.xfce-start-logo {
+  font-size: 15px;
+}
+
+.xfce-taskbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 0 8px;
+}
+
+.xfce-task {
+  background: #50505a;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+}
+
+.xfce-task:hover {
+  background: #5a5a64;
+}
+
+.xfce-tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+}
+
+body[data-theme='xfce'] .icon-btn {
+  color: #eee;
+}
+
+.xfce-clock {
+  color: #eee;
+  font-size: 12.5px;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* ---- XFCE 应用菜单 ---- */
+.xfce-menu {
+  position: fixed;
+  left: 8px;
+  bottom: 46px;
+  width: 260px;
+  background: #3c3c46;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 55;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.xfce-menu-header {
+  background: #4d4d57;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #eee;
+}
+
+.xfce-menu-list {
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.xfce-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #eee;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+}
+
+.xfce-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.xfce-menu-item .app-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 15px;
+  border-radius: 7px;
+}
+
+/* 电源菜单分隔线 */
+.power-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+}

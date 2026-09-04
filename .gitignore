@@ -1,0 +1,11 @@
+node_modules/
+dist/
+src/assets/*.png
+!src/assets/.gitkeep
+*.log
+.DS_Store
+Thumbs.db
+release/
+artifacts/
+.idea/
+.vscode/
